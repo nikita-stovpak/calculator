@@ -101,15 +101,16 @@
       console.log('script start');
         function calculateConversionRate() {
             console.log('started fun')
-            var traffic = document.getElementById('traffic').value;
+            var traffic = document.getElementById('traffic')?.value;
             console.log('started fun 2')
-            var orders = document.getElementById('orders').value;
+            var orders = document.getElementById('orders')?.value;
             console.log('started fun 3')
+            if (traffic && orders) {
+              var conversionRate = (orders / traffic) * 100;
+              conversionRate = conversionRate.toFixed(2); // rounding to two decimal places
 
-            var conversionRate = (orders / traffic) * 100;
-            conversionRate = conversionRate.toFixed(2); // rounding to two decimal places
-
-            document.getElementById('sales').value = `${conversionRate}%`;
+              document.getElementById('sales').value = `${conversionRate}%`;
+            }
         }
 
         function toggleEmbedContent() {
