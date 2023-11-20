@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Conversion Rate Calculator</title>
+    <style>
+        .calculator, .embed-instructions {
+            margin: auto;
+            max-width: 600px;
+            padding: 20px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+            margin-bottom: 20px;
+        }
+
+        .input-group {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .input-group > div {
+            display: flex;
+            flex-direction: column;
+        }
+
+        @media (min-width: 768px) {
+            .input-group {
+                flex-direction: row;
+                justify-content: center;
+            }
+        }
+
+        input[type=number], input[type=text] {
+            width: 100%;
+            padding: 8px;
+            margin: 5px 0;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+        }
+
+        h2 {
+            text-align: center;
+        }
+
+        label {
+            font-weight: bold;
+        }
+
+        .embed-link {
+            text-decoration: underline;
+            color: #007bff;
+            cursor: pointer;
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        .embed-content {
+            display: none;
+            margin-top: 10px;
+        }
+
+        .copy-icon {
+            cursor: pointer;
+            display: inline-block;
+            margin-left: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="calculator">
+        <h2>Conversion Rate Calculator</h2>
+        <div class="input-group">
+            <div>
+                <label for="traffic">Traffic:</label>
+                <input type="number" id="traffic" value="1000" oninput="calculateConversionRate()">
+            </div>
+            <div>
+                <label for="orders">Number of Orders:</label>
+                <input type="number" id="orders" value="50" oninput="calculateConversionRate()">
+            </div>
+            <div>
+                <label for="sales">Total Sales (%):</label>
+                <input type="text" id="sales" readonly>
+            </div>
+        </div>
+        <!-- Embed Link -->
+        <div class="embed-link" onclick="toggleEmbedContent()">Embed This Calculator on Your Site</div>
+
+        <!-- Embed Content -->
+        <div class="embed-content" id="embedContent">
+            <textarea id="embedCode" readonly style="width: 100%; height: 100px;">
+            <script src="https://www.yourdomain.com/embedCalculator.js"></script>
+            </textarea>
+            <span class="copy-icon" onclick="copyToClipboard()">📋</span>
+        </div>
+    </div>
+
+
+    <script>
+      console.log('script start');
+        function calculateConversionRate() {
+            console.log('started fun')
+            var traffic = document.getElementById('traffic').value;
+            var orders = document.getElementById('orders').value;
+
+            var conversionRate = (orders / traffic) * 100;
+            conversionRate = conversionRate.toFixed(2); // rounding to two decimal places
+
+            document.getElementById('sales').value = `${conversionRate}%`;
+        }
+
+        function toggleEmbedContent() {
+            var embedContent = document.getElementById("embedContent");
+            embedContent.style.display = embedContent.style.display === "block" ? "none" : "block";
+        }
+
+        function copyToClipboard() {
+            var copyText = document.getElementById("embedCode");
+            copyText.select();
+            copyText.setSelectionRange(0, 99999); // For mobile devices
+            document.execCommand("copy");
+            alert("Copied the embed code to clipboard.");
+        }
+
+        // Initial calculation on page load
+      console.log('script end');
+
+      calculateConversionRate();
+    </script>
+</body>
+</html>
