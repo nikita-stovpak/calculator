@@ -90,7 +90,27 @@
         <!-- Embed Content -->
         <div class="embed-content" id="embedContent">
             <textarea id="embedCode" readonly style="width: 100%; height: 100px;">
-            <script src="https://www.yourdomain.com/embedCalculator.js"></script>
+                <script id="calculator-integration-script">
+                    fetch(url)
+                        .then(function(response) {
+                            return response.json();
+                        }).then(function(data) {
+                        var div = document.createElement('div');
+                        div.innerHTML = atob(data.content).trim();
+
+                        const script = document.getElementById('calculator-integration-script');
+                        const calculationDiv = script.parentElement;
+
+                        var scriptToSave   = document.createElement("script");
+                        var scriptFromCalculator = div.getElementsByTagName('script')[0];
+
+                        scriptToSave.type  = "text/javascript";
+                        scriptToSave.text  = scriptFromCalculator.text;
+
+                        calculationDiv.appendChild(scriptToSave);
+                        calculationDiv.appendChild(div);
+                    });
+                </script>
             </textarea>
             <span class="copy-icon" onclick="copyToClipboard()">📋</span>
         </div>
@@ -98,13 +118,9 @@
 
 
     <script>
-      console.log('script start');
         function calculateConversionRate() {
-            console.log('started fun')
             var traffic = document.getElementById('traffic')?.value;
-            console.log('started fun 2')
             var orders = document.getElementById('orders')?.value;
-            console.log('started fun 3')
             if (traffic && orders) {
               var conversionRate = (orders / traffic) * 100;
               conversionRate = conversionRate.toFixed(2); // rounding to two decimal places
