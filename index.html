@@ -99,34 +99,7 @@
 
     <script>
       console.log('script start');
-        function calculateConversionRate() {
-            console.log('started fun')
-            var traffic = document.getElementById('traffic').value;
-            var orders = document.getElementById('orders').value;
 
-            var conversionRate = (orders / traffic) * 100;
-            conversionRate = conversionRate.toFixed(2); // rounding to two decimal places
-
-            document.getElementById('sales').value = `${conversionRate}%`;
-        }
-
-        function toggleEmbedContent() {
-            var embedContent = document.getElementById("embedContent");
-            embedContent.style.display = embedContent.style.display === "block" ? "none" : "block";
-        }
-
-        function copyToClipboard() {
-            var copyText = document.getElementById("embedCode");
-            copyText.select();
-            copyText.setSelectionRange(0, 99999); // For mobile devices
-            document.execCommand("copy");
-            alert("Copied the embed code to clipboard.");
-        }
-
-        // Initial calculation on page load
-      console.log('script end');
-
-      calculateConversionRate();
     </script>
 </body>
 </html>
